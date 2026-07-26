@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حسن البصراوي | المنصة الرسمية</title>
+    <style>
+        /* إعدادات عامة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* شريط التنقل (الهيدر) */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5% ;
+            background-color: #111111;
+            border-bottom: 2px solid #ffa31a;
+            box-shadow: 0 4px 15px rgba(255, 163, 26, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* تصميم الشعار الاحترافي بالأسود والأصفر */
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            letter-spacing: 1px;
+        }
+
+        .logo .white-text {
+            color: #ffffff;
+        }
+
+        .logo .yellow-badge {
+            background-color: #ffa31a;
+            color: #000000;
+            padding: 2px 12px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        /* زر التليجرام */
+        .telegram-btn {
+            background-color: #2AABEE;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(42, 171, 238, 0.3);
+        }
+
+        .telegram-btn:hover {
+            background-color: #229ED9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 171, 238, 0.5);
+        }
+
+        /* القسم الرئيسي (البطل) */
+        .hero {
+            text-align: center;
+            margin-top: 15vh;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            color: #ffa31a;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(255, 163, 26, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: #cccccc;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* حاوية الكلمات المتناثرة */
+        .scattered-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        /* تصميم الكلمات المتناثرة */
+        .word {
+            position: absolute;
+            font-weight: 800;
+            color: #ffa31a;
+            opacity: 0;
+            white-space: nowrap;
+            user-select: none;
+            animation: floatUp linear infinite;
+        }
+
+        /* حركة طفو الكلمات */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(110vh) rotate(-15deg) scale(0.8);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.15; /* الشفافية خفيفة كي لا تزعج القراءة */
+            }
+            80% {
+                opacity: 0.15;
+            }
+            100% {
+                transform: translateY(-20vh) rotate(15deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* التوافق مع الهواتف الذكية */
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 20px; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شريط التنقل العُلوي -->
+    <header>
+        <div class="logo">
+            <span class="white-text">حسن</span><span class="yellow-badge">البصراوي</span>
+        </div>
+        <nav>
+            <!-- ضع يوزر التليجرام الخاص بك بدل YOUR_USERNAME -->
+            <a href="https://t.me/YOUR_USERNAME" target="_blank" class="telegram-btn">
+                <span>تواصل معي على تليجرام</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main>
+        <section class="hero">
+            <h1>مرحباً بك في القمة</h1>
+            <p>التصميم الأقوى والأكثر عصرية. صُنع خصيصاً ليخطف الأنظار ويتصدر المنافسة بألوانه الجريئة والمميزة.</p>
+        </section>
+    </main>
+
+    <!-- الحاوية التي ستظهر فيها الكلمات المتناثرة -->
+    <div class="scattered-container" id="scattered"></div>
+
+    <!-- سكربت جافا سكربت لتوليد الكلمات المتناثرة -->
+    <script>
+        const wordsArray = ['ابه ابه البصراوي', 'حسن البصراوي'];
+        const container = document.getElementById('scattered');
+
+        function createScatteredWord() {
+            const wordEl = document.createElement('div');
+            wordEl.classList.add('word');
+            
+            // اختيار كلمة عشوائية من المصفوفة
+            wordEl.innerText = wordsArray[Math.floor(Math.random() * wordsArray.length)];
+            
+            // تحديد موقع عشوائي أفقياً (من 0 إلى 90% من عرض الشاشة)
+            wordEl.style.left = Math.random() * 90 + 'vw';
+            
+            // تحديد حجم خط عشوائي (بين 1.5 و 4 ريم)
+            wordEl.style.fontSize = (Math.random() * 2.5 + 1.5) + 'rem';
+            
+            // تحديد مدة عشوائية للحركة (بين 7 و 15 ثانية)
+            const duration = Math.random() * 8 + 7;
+            wordEl.style.animationDuration = duration + 's';
+            
+            // إضافة الكلمة للشاشة
+            container.appendChild(wordEl);
+
+            // حذف الكلمة من الكود بعد انتهاء حركتها لتخفيف الضغط على المتصفح
+            setTimeout(() => {
+                wordEl.remove();
+            }, duration * 1000);
+        }
+
+        // توليد كلمة جديدة كل 800 جزء من الثانية
+        setInterval(createScatteredWord, 800);
+        
+        // توليد مجموعة مبدئية عند فتح الموقع
+        for(let i=0; i<5; i++) {
+            setTimeout(createScatteredWord, i * 200);
+        }
+    </script>
+
+</body>
+</html>
