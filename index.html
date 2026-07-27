@@ -208,6 +208,17 @@
     padding-bottom:2px;transition:.2s;
   }
   .video-link:hover{color:var(--red-soft);}
+  .alt-link{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:.82rem;color:var(--ember);
+    text-decoration:none;border-bottom:1px dashed var(--ember);
+    padding-bottom:2px;transition:.2s;
+    margin-inline-start:14px;
+    cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;
+    font-family:var(--mono);
+  }
+  .alt-link:hover{color:#ffb18a;}
+  .ex-links{display:flex;flex-wrap:wrap;align-items:center;gap:4px;}
 
   /* ---------- goal note ---------- */
   .goal-note{
@@ -283,6 +294,20 @@
   }
   .nutri-card .lbl{color:var(--muted);font-size:.85rem;margin-top:6px;}
 
+  /* ---------- alternative exercises highlight ---------- */
+  .alt-highlight{
+    animation:altpulse 1.6s ease-in-out 2;
+  }
+  @keyframes altpulse{
+    0%,100%{box-shadow:0 0 0 0 rgba(255,122,69,0);}
+    50%{box-shadow:0 0 24px 4px rgba(255,122,69,0.55);}
+  }
+  .back-link{
+    display:inline-flex;align-items:center;gap:6px;font-size:.82rem;color:var(--muted);
+    text-decoration:none;border-bottom:1px dashed var(--muted);padding-bottom:2px;
+  }
+  .back-link:hover{color:var(--red-soft);border-color:var(--red-soft);}
+
   footer{
     text-align:center;padding:40px 6vw 60px;color:var(--muted);font-size:.82rem;
     border-top:1px solid var(--line);margin-top:40px;
@@ -301,6 +326,7 @@
   <div class="brand">PULSE <span>PROTOCOL</span></div>
   <div class="nav-links">
     <a href="#program">البرنامج</a>
+    <a href="#alt-program">البديل</a>
     <a href="#tips">النصائح</a>
     <a href="#converter">تحويل الوزن</a>
     <a href="#nutrition">التغذية</a>
@@ -327,7 +353,7 @@
 <section id="program">
   <span class="eyebrow">الجزء الأول</span>
   <h2 class="section-title">جدول التمارين الأسبوعي</h2>
-  <p class="section-sub">اختر يوم التدريب لعرض التمارين، عدد المجموعات، التكرارات، وفترات الراحة. كل تمرين يحتوي على رابط لمشاهدة شرح الأداء الصحيح.</p>
+  <p class="section-sub">اختر يوم التدريب لعرض التمارين، عدد المجموعات، التكرارات، وفترات الراحة. كل تمرين يحتوي على رابط لمشاهدة شرح الأداء الصحيح، ورابط للتمرين البديل.</p>
 
   <div class="goal-note">
     الهدف الأساسي: استهداف كل عضلة مرتين أسبوعياً (تدريب 3 أيام ثم تكرار الدورة = 6 أيام تدريب فعلي)، مع زيادة تدريجية في الحمل والاقتراب من الفشل العضلي (1-2 عدة متبقية) في كل مجموعة أخيرة.
@@ -443,54 +469,121 @@
 </section>
 
 
+<!-- ALTERNATIVE PROGRAM -->
+<section id="alt-program">
+  <span class="eyebrow">الجزء الخامس</span>
+  <h2 class="section-title">جدول التمارين البديلة</h2>
+  <p class="section-sub">تمارين بديلة لكل يوم — بنفس الشدة والدقة، مع دمج حركات أحادية (Unilateral) تبني التوازن والقوة الوظيفية. استخدمها عند تغيير التمارين كل 6-8 أسابيع أو عند عدم توفر معدات معينة.</p>
+
+  <div class="day-tabs" id="alt-day-tabs">
+    <div class="day-tab active" data-day="push">الدفع البديل<span class="sub">صدر · أكتاف · ترايسبس</span></div>
+    <div class="day-tab" data-day="pull">السحب البديل<span class="sub">ظهر · بايسبس</span></div>
+    <div class="day-tab" data-day="legs">الأرجل البديل<span class="sub">فخذ · سمانة</span></div>
+  </div>
+
+  <div class="day-panel active" id="alt-panel-push">
+    <div class="grid" id="alt-grid-push"></div>
+  </div>
+  <div class="day-panel" id="alt-panel-pull">
+    <div class="grid" id="alt-grid-pull"></div>
+  </div>
+  <div class="day-panel" id="alt-panel-legs">
+    <div class="grid" id="alt-grid-legs"></div>
+  </div>
+</section>
+
 <footer>
   <span class="brand">PULSE <span style="color:var(--red)">PROTOCOL</span></span>
   هذا البرنامج للإرشاد العام فقط، ولا يُعتبر استشارة طبية أو رياضية متخصصة — يُفضّل إشراف مدرّب أو مختص لياقة عند التطبيق، خصوصاً في مرحلة النمو.
 </footer>
 
 <script>
-  // day tabs
-  const tabs = document.querySelectorAll('.day-tab');
+  // day tabs (main program)
+  const tabs = document.querySelectorAll('#program .day-tab, .day-tabs:not(#alt-day-tabs) .day-tab');
   const panels = {
     push: document.getElementById('panel-push'),
     pull: document.getElementById('panel-pull'),
     legs: document.getElementById('panel-legs'),
   };
-  tabs.forEach(tab=>{
+  document.querySelectorAll('.day-tabs:not(#alt-day-tabs) .day-tab').forEach(tab=>{
     tab.addEventListener('click', ()=>{
-      tabs.forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.day-tabs:not(#alt-day-tabs) .day-tab').forEach(t=>t.classList.remove('active'));
       Object.values(panels).forEach(p=>p.classList.remove('active'));
       tab.classList.add('active');
       panels[tab.dataset.day].classList.add('active');
     });
   });
 
-  // exercise data
+  // day tabs (alternative program)
+  const altPanels = {
+    push: document.getElementById('alt-panel-push'),
+    pull: document.getElementById('alt-panel-pull'),
+    legs: document.getElementById('alt-panel-legs'),
+  };
+  document.querySelectorAll('#alt-day-tabs .day-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      document.querySelectorAll('#alt-day-tabs .day-tab').forEach(t=>t.classList.remove('active'));
+      Object.values(altPanels).forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      altPanels[tab.dataset.day].classList.add('active');
+    });
+  });
+
+  // exercise data (main)
   const data = {
     push: [
-      {name:"بنش برس مستوي بالبار (Barbell Bench Press)", en:"Barbell Bench Press", sets:"3", reps:"6-8", rest:"2-3 دقائق", note:"تمرين مركّب أساسي — يؤدى أولاً وبأعلى طاقة تركيز."},
-      {name:"تفتيح صدر علوي بالدمبل (Incline Dumbbell Press)", en:"Incline Dumbbell Press", sets:"3", reps:"8-10", rest:"2 دقيقة", note:"يستهدف الجزء العلوي من الصدر."},
-      {name:"تجميع صدر بالكيبل / فراشة (Cable Crossovers / Pec Deck)", en:"Cable Crossovers", sets:"3", reps:"10-12", rest:"1.5 دقيقة", note:"تمرين عزل لإنهاء العضلة."},
-      {name:"ضغط أكتاف بالدمبل (Overhead Dumbbell Press)", en:"Overhead Dumbbell Press", sets:"3", reps:"8-10", rest:"2 دقيقة", note:"لبناء عرض الكتف الأمامي والجانبي."},
-      {name:"رفرفة جانبية بالدمبل (Dumbbell Lateral Raises)", en:"Dumbbell Lateral Raises", sets:"4", reps:"12-15", rest:"1-1.5 دقيقة", note:"عضلة الكتف الجانبي تتحمل حجم تدريب عالٍ."},
-      {name:"سحب ترايسبس بالكيبل (Triceps Pushdown)", en:"Triceps Pushdown", sets:"3", reps:"10-12", rest:"1.5 دقيقة", note:"تركيز على انقباض كامل في أسفل الحركة."},
-      {name:"ترايسبس خلف الرأس (Overhead Triceps Extension)", en:"Overhead Triceps Extension", sets:"3", reps:"10-12", rest:"1.5 دقيقة", note:"يستهدف الرأس الطويلة للترايسبس."},
+      {id:"push-1", alt:"altpush-1", name:"بنش برس مستوي بالبار (Barbell Bench Press)", en:"Barbell Bench Press", sets:"3", reps:"6-8", rest:"2-3 دقائق", note:"تمرين مركّب أساسي — يؤدى أولاً وبأعلى طاقة تركيز."},
+      {id:"push-2", alt:"altpush-2", name:"تفتيح صدر علوي بالدمبل (Incline Dumbbell Press)", en:"Incline Dumbbell Press", sets:"3", reps:"8-10", rest:"2 دقيقة", note:"يستهدف الجزء العلوي من الصدر."},
+      {id:"push-3", alt:"altpush-3", name:"تجميع صدر بالكيبل / فراشة (Cable Crossovers / Pec Deck)", en:"Cable Crossovers", sets:"3", reps:"10-12", rest:"1.5 دقيقة", note:"تمرين عزل لإنهاء العضلة."},
+      {id:"push-4", alt:"altpush-4", name:"ضغط أكتاف بالدمبل (Overhead Dumbbell Press)", en:"Overhead Dumbbell Press", sets:"3", reps:"8-10", rest:"2 دقيقة", note:"لبناء عرض الكتف الأمامي والجانبي."},
+      {id:"push-5", alt:"altpush-5", name:"رفرفة جانبية بالدمبل (Dumbbell Lateral Raises)", en:"Dumbbell Lateral Raises", sets:"4", reps:"12-15", rest:"1-1.5 دقيقة", note:"عضلة الكتف الجانبي تتحمل حجم تدريب عالٍ."},
+      {id:"push-6", alt:"altpush-6", name:"سحب ترايسبس بالكيبل (Triceps Pushdown)", en:"Triceps Pushdown", sets:"3", reps:"10-12", rest:"1.5 دقيقة", note:"تركيز على انقباض كامل في أسفل الحركة."},
+      {id:"push-7", alt:"altpush-7", name:"ترايسبس خلف الرأس (Overhead Triceps Extension)", en:"Overhead Triceps Extension", sets:"3", reps:"10-12", rest:"1.5 دقيقة", note:"يستهدف الرأس الطويلة للترايسبس."},
     ],
     pull: [
-      {name:"سحب واسع من الأعلى أو عقلة (Lat Pulldown / Pull-ups)", en:"Lat Pulldown", sets:"3", reps:"8-10", rest:"2-3 دقائق", note:"لبناء عرض الظهر."},
-      {name:"تجديف بالبار (Barbell Rows)", en:"Barbell Rows", sets:"3", reps:"6-8", rest:"2-3 دقائق", note:"تمرين مركّب لسماكة الظهر."},
-      {name:"تجديف أرضي بالكيبل (Seated Cable Rows)", en:"Seated Cable Rows", sets:"3", reps:"10-12", rest:"2 دقيقة", note:"حافظ على استقامة الظهر أثناء السحب."},
-      {name:"سحب للوجه (Face Pulls)", en:"Face Pulls", sets:"3", reps:"12-15", rest:"1.5 دقيقة", note:"مهم لصحة الكتف والأكتاف الخلفية."},
-      {name:"بايسبس بالبار (Barbell Bicep Curls)", en:"Barbell Bicep Curls", sets:"3", reps:"8-10", rest:"1.5 دقيقة", note:"تجنب تحريك الجذع لدفع الوزن."},
-      {name:"بايسبس مطرقة بالدمبل (Hammer Curls)", en:"Hammer Curls", sets:"3", reps:"10-12", rest:"1.5 دقيقة", note:"يستهدف العضلة الكابة أيضاً."},
+      {id:"pull-1", alt:"altpull-1", name:"سحب واسع من الأعلى أو عقلة (Lat Pulldown / Pull-ups)", en:"Lat Pulldown", sets:"3", reps:"8-10", rest:"2-3 دقائق", note:"لبناء عرض الظهر."},
+      {id:"pull-2", alt:"altpull-2", name:"تجديف بالبار (Barbell Rows)", en:"Barbell Rows", sets:"3", reps:"6-8", rest:"2-3 دقائق", note:"تمرين مركّب لسماكة الظهر."},
+      {id:"pull-3", alt:"altpull-3", name:"تجديف أرضي بالكيبل (Seated Cable Rows)", en:"Seated Cable Rows", sets:"3", reps:"10-12", rest:"2 دقيقة", note:"حافظ على استقامة الظهر أثناء السحب."},
+      {id:"pull-4", alt:"altpull-4", name:"سحب للوجه (Face Pulls)", en:"Face Pulls", sets:"3", reps:"12-15", rest:"1.5 دقيقة", note:"مهم لصحة الكتف والأكتاف الخلفية."},
+      {id:"pull-5", alt:"altpull-5", name:"بايسبس بالبار (Barbell Bicep Curls)", en:"Barbell Bicep Curls", sets:"3", reps:"8-10", rest:"1.5 دقيقة", note:"تجنب تحريك الجذع لدفع الوزن."},
+      {id:"pull-6", alt:"altpull-6", name:"بايسبس مطرقة بالدمبل (Hammer Curls)", en:"Hammer Curls", sets:"3", reps:"10-12", rest:"1.5 دقيقة", note:"يستهدف العضلة الكابة أيضاً."},
     ],
     legs: [
-      {name:"سكوات بالبار (Barbell Squats)", en:"Barbell Squats", sets:"3", reps:"6-8", rest:"3 دقائق", note:"الملك بين تمارين الأرجل — أولوية الحفاظ على الشكل الصحيح."},
-      {name:"ديدليفت روماني (Romanian Deadlift)", en:"Romanian Deadlift", sets:"3", reps:"8-10", rest:"2-3 دقائق", note:"يستهدف الفخذ الخلفي وأسفل الظهر."},
-      {name:"مكبس الأرجل (Leg Press)", en:"Leg Press", sets:"3", reps:"10-12", rest:"2 دقيقة", note:"حمل آمن نسبياً لبناء حجم الفخذ."},
-      {name:"رفرفة أمامي على الجهاز (Leg Extensions)", en:"Leg Extensions", sets:"3", reps:"12-15", rest:"1.5 دقيقة", note:"عزل للفخذ الأمامي."},
-      {name:"رفرفة خلفي على الجهاز (Leg Curls)", en:"Leg Curls", sets:"3", reps:"12-15", rest:"1.5 دقيقة", note:"عزل للفخذ الخلفي."},
-      {name:"رفع السمانة وقوفاً (Standing Calf Raises)", en:"Standing Calf Raises", sets:"4", reps:"15-20", rest:"1 دقيقة", note:"توقف لحظة في أعلى الحركة لانقباض كامل."},
+      {id:"legs-1", alt:"altlegs-1", name:"سكوات بالبار (Barbell Squats)", en:"Barbell Squats", sets:"3", reps:"6-8", rest:"3 دقائق", note:"الملك بين تمارين الأرجل — أولوية الحفاظ على الشكل الصحيح."},
+      {id:"legs-2", alt:"altlegs-2", name:"ديدليفت روماني (Romanian Deadlift)", en:"Romanian Deadlift", sets:"3", reps:"8-10", rest:"2-3 دقائق", note:"يستهدف الفخذ الخلفي وأسفل الظهر."},
+      {id:"legs-3", alt:"altlegs-3", name:"مكبس الأرجل (Leg Press)", en:"Leg Press", sets:"3", reps:"10-12", rest:"2 دقيقة", note:"حمل آمن نسبياً لبناء حجم الفخذ."},
+      {id:"legs-4", alt:"altlegs-4", name:"رفرفة أمامي على الجهاز (Leg Extensions)", en:"Leg Extensions", sets:"3", reps:"12-15", rest:"1.5 دقيقة", note:"عزل للفخذ الأمامي."},
+      {id:"legs-5", alt:"altlegs-5", name:"رفرفة خلفي على الجهاز (Leg Curls)", en:"Leg Curls", sets:"3", reps:"12-15", rest:"1.5 دقيقة", note:"عزل للفخذ الخلفي."},
+      {id:"legs-6", alt:"altlegs-6", name:"رفع السمانة وقوفاً (Standing Calf Raises)", en:"Standing Calf Raises", sets:"4", reps:"15-20", rest:"1 دقيقة", note:"توقف لحظة في أعلى الحركة لانقباض كامل."},
+    ],
+  };
+
+  // alternative exercise data
+  const altData = {
+    push: [
+      {id:"altpush-1", back:"push-1", name:"ضغط صدر بالدمبل على بنش مستوي (Flat Dumbbell Bench Press)", en:"Flat Dumbbell Bench Press", sets:"3", reps:"6-8", rest:"2-3 دقائق", note:"بديل بالدمبل يمنح مدى حركة أوسع ويوازن بين الجانبين."},
+      {id:"altpush-2", back:"push-2", name:"بنش برس علوي بالبار (Incline Barbell Press)", en:"Incline Barbell Press", sets:"3", reps:"8-10", rest:"2 دقيقة", note:"يستهدف الجزء العلوي من الصدر بحمل أثقل نسبياً."},
+      {id:"altpush-3", back:"push-3", name:"تفتيح بالدمبلز على بنش مستوي (Dumbbell Flyes)", en:"Dumbbell Flyes", sets:"3", reps:"10-12", rest:"1.5 دقيقة", note:"تمرين عزل بمدى حركة حر لإنهاء العضلة."},
+      {id:"altpush-4", back:"push-4", name:"ضغط أكتاف بالبار من الوقوف (Military Press)", en:"Military Press", sets:"3", reps:"8-10", rest:"2 دقيقة", note:"يبني قوة دفع أساسية وثبات الجذع."},
+      {id:"altpush-5", back:"push-5", name:"رفرفة جانبية بالكيبل (Cable Lateral Raises)", en:"Cable Lateral Raises", sets:"4", reps:"12-15 (لكل ذراع)", rest:"1-1.5 دقيقة", note:"شد مستمر على العضلة طوال مدى الحركة."},
+      {id:"altpush-6", back:"push-6", name:"غطس على المتوازي (Dips)", en:"Dips", sets:"3", reps:"8-10", rest:"1.5 دقيقة", note:"حركة مركّبة للصدر السفلي والترايسبس، يمكن إضافة وزن."},
+      {id:"altpush-7", back:"push-7", name:"كسر الجمجمة بالبار الزجزاج (EZ Bar Skull Crushers)", en:"EZ Bar Skull Crushers", sets:"3", reps:"10-12", rest:"1.5 دقيقة", note:"يستهدف الرأس الطويلة للترايسبس بضغط أقل على المعصم."},
+    ],
+    pull: [
+      {id:"altpull-1", back:"pull-1", name:"سحب ذراع مستقيم بالكيبل (Straight Arm Pulldown)", en:"Straight Arm Pulldown", sets:"3", reps:"10-12", rest:"2 دقيقة", note:"عزل لعضلة اللاتس بدون تدخل البايسبس."},
+      {id:"altpull-2", back:"pull-2", name:"تجديف بالدمبل ذراع واحد (Single-Arm Dumbbell Row)", en:"Single-Arm Dumbbell Row", sets:"3", reps:"8-10 (لكل ذراع)", rest:"2-3 دقائق", note:"حركة أحادية تصحح عدم التوازن بين الجانبين."},
+      {id:"altpull-3", back:"pull-3", name:"تجديف بالدمبلز مع الاستناد على بنش مائل (Chest-Supported Dumbbell Row)", en:"Chest-Supported Dumbbell Row", sets:"3", reps:"10-12", rest:"2 دقيقة", note:"يحمي أسفل الظهر ويركّز الحمل على الظهر فقط."},
+      {id:"altpull-4", back:"pull-4", name:"رفرفة خلفية بالدمبلز (Rear Delt Dumbbell Flyes)", en:"Rear Delt Dumbbell Flyes", sets:"3", reps:"12-15", rest:"1.5 دقيقة", note:"مهم لصحة الكتف والأكتاف الخلفية."},
+      {id:"altpull-5", back:"pull-5", name:"تبادل بايسبس بالدمبلز (Alternating Dumbbell Curls)", en:"Alternating Dumbbell Curls", sets:"3", reps:"8-10 (لكل ذراع)", rest:"1.5 دقيقة", note:"تركيز أحادي كامل على كل ذراع بدوره."},
+      {id:"altpull-6", back:"pull-6", name:"كيرل عكسي بالبار (Reverse Barbell Curls)", en:"Reverse Barbell Curls", sets:"3", reps:"10-12", rest:"1.5 دقيقة", note:"يستهدف الساعد والعضلة الكابة أيضاً."},
+    ],
+    legs: [
+      {id:"altlegs-1", back:"legs-1", name:"سكوات بلغاري بالدمبل (Bulgarian Split Squats)", en:"Bulgarian Split Squats", sets:"3", reps:"8-10 (لكل قدم)", rest:"2-3 دقائق", note:"حركة أحادية تبني توازناً وقوة وظيفية عالية."},
+      {id:"altlegs-2", back:"legs-2", name:"أرجحة الكيتل بيل (Kettlebell Swings)", en:"Kettlebell Swings", sets:"3", reps:"12-15", rest:"2 دقيقة", note:"قوة انفجارية للفخذ الخلفي والمؤخرة وأسفل الظهر."},
+      {id:"altlegs-3", back:"legs-3", name:"طعنات متحركة بالدمبل (Walking Lunges)", en:"Walking Lunges", sets:"3", reps:"10-12 خطوة (لكل قدم)", rest:"2 دقيقة", note:"يبني ثباتاً واستقراراً في الجسم أثناء الحركة."},
+      {id:"altlegs-4", back:"legs-4", name:"صعود الدرج مع حمل أوزان (Weighted Step-ups)", en:"Weighted Step-ups", sets:"3", reps:"10-12 (لكل قدم)", rest:"1.5 دقيقة", note:"حركة أحادية تحاكي الأداء الحركي والوقفات القتالية."},
+      {id:"altlegs-5", back:"legs-5", name:"كيرل فخذ خلفي بالكرة السويسرية (Swiss Ball Hamstring Curls)", en:"Swiss Ball Hamstring Curls", sets:"3", reps:"12-15", rest:"1.5 دقيقة", note:"عزل للفخذ الخلفي مع تفعيل عضلات الجذع."},
+      {id:"altlegs-6", back:"legs-6", name:"رفع السمانة جالساً على الجهاز (Seated Calf Raises)", en:"Seated Calf Raises", sets:"4", reps:"15-20", rest:"1 دقيقة", note:"يستهدف العضلة السمانية العميقة (Soleus)."},
     ],
   };
 
@@ -499,7 +592,7 @@
     grid.innerHTML = data[day].map((ex,i)=>{
       const q = encodeURIComponent(ex.en);
       return `
-        <div class="ex-card-wrap">
+        <div class="ex-card-wrap" id="${ex.id}">
         <div class="ex-card">
           <div class="ex-num">تمرين ${String(i+1).padStart(2,'0')}</div>
           <div class="ex-name">${ex.name}</div>
@@ -509,14 +602,75 @@
             <span class="chip muted">راحة ${ex.rest}</span>
           </div>
           <div class="ex-note">${ex.note}</div>
-          <a class="video-link" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${q}">
-            ▶ مشاهدة شرح الأداء
-          </a>
+          <div class="ex-links">
+            <a class="video-link" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${q}">
+              ▶ مشاهدة شرح الأداء
+            </a>
+            <a class="alt-link" href="#${ex.alt}" onclick="goToAlt(event,'${day}','${ex.alt}')">⇄ تمرين بديل</a>
+          </div>
         </div>
         </div>`;
     }).join('');
   }
+
+  function renderAlt(day){
+    const grid = document.getElementById('alt-grid-'+day);
+    grid.innerHTML = altData[day].map((ex,i)=>{
+      const q = encodeURIComponent(ex.en);
+      return `
+        <div class="ex-card-wrap" id="${ex.id}">
+        <div class="ex-card">
+          <div class="ex-num">بديل ${String(i+1).padStart(2,'0')}</div>
+          <div class="ex-name">${ex.name}</div>
+          <div class="ex-meta">
+            <span class="chip">${ex.sets} مجموعات</span>
+            <span class="chip">${ex.reps} عدة</span>
+            <span class="chip muted">راحة ${ex.rest}</span>
+          </div>
+          <div class="ex-note">${ex.note}</div>
+          <div class="ex-links">
+            <a class="video-link" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${q}">
+              ▶ مشاهدة شرح الأداء
+            </a>
+            <a class="back-link" href="#${ex.back}" onclick="goToMain(event,'${day}','${ex.back}')">↩ التمرين الأصلي</a>
+          </div>
+        </div>
+        </div>`;
+    }).join('');
+  }
+
+  function activateDay(prefix, day, tabsSelector, panelsObj, tabsList){
+    tabsList.forEach(t=>t.classList.remove('active'));
+    Object.values(panelsObj).forEach(p=>p.classList.remove('active'));
+    const targetTab = document.querySelector(tabsSelector+' [data-day="'+day+'"]');
+    if(targetTab) targetTab.classList.add('active');
+    panelsObj[day].classList.add('active');
+  }
+
+  function focusCard(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.scrollIntoView({behavior:'smooth', block:'center'});
+    el.classList.add('alt-highlight');
+    setTimeout(()=>el.classList.remove('alt-highlight'), 3200);
+  }
+
+  window.goToAlt = function(e, day, altId){
+    e.preventDefault();
+    document.getElementById('alt-program').scrollIntoView({behavior:'smooth', block:'start'});
+    activateDay('alt', day, '#alt-day-tabs', altPanels, document.querySelectorAll('#alt-day-tabs .day-tab'));
+    setTimeout(()=>focusCard(altId), 400);
+  };
+
+  window.goToMain = function(e, day, mainId){
+    e.preventDefault();
+    document.getElementById('program').scrollIntoView({behavior:'smooth', block:'start'});
+    activateDay('main', day, '.day-tabs:not(#alt-day-tabs)', panels, document.querySelectorAll('.day-tabs:not(#alt-day-tabs) .day-tab'));
+    setTimeout(()=>focusCard(mainId), 400);
+  };
+
   render('push'); render('pull'); render('legs');
+  renderAlt('push'); renderAlt('pull'); renderAlt('legs');
 
   // weight converter
   const lb = document.getElementById('lbInput');
