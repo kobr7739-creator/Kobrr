@@ -1,221 +1,480 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حسن البصراوي | المنصة الرسمية</title>
-    <style>
-        /* إعدادات عامة */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PULSE PROTOCOL | برنامج التضخيم العضلي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Almarai:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0708;
+    --bg-soft:#130d0f;
+    --card:#150f11;
+    --line:#2a1418;
+    --red:#ff1f3d;
+    --red-soft:#ff4d6d;
+    --red-dim:#7a0e1f;
+    --ember:#ff7a45;
+    --text:#f3ece9;
+    --muted:#a89194;
+    --mono: 'Tajawal', sans-serif;
+    --display: 'Almarai', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:radial-gradient(ellipse 80% 60% at 50% -10%, #2a0a10 0%, var(--bg) 55%);
+    color:var(--text);
+    font-family:var(--mono);
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--red);color:#fff;}
 
-        body {
-            background-color: #000000;
-            color: #ffffff;
-            overflow-x: hidden;
-            position: relative;
-            min-height: 100vh;
-        }
+  /* ---------- top nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 6vw;
+    background:rgba(10,7,8,0.75);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{
+    font-family:var(--display);font-weight:800;font-size:1.3rem;
+    letter-spacing:1px;
+    color:#fff;
+  }
+  .brand span{color:var(--red);text-shadow:0 0 12px var(--red);}
+  .nav-links{display:flex;gap:26px;font-size:.92rem;color:var(--muted);}
+  .nav-links a{text-decoration:none;transition:.25s;}
+  .nav-links a:hover{color:var(--red-soft);}
 
-        /* شريط التنقل (الهيدر) */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5% ;
-            background-color: #111111;
-            border-bottom: 2px solid #ffa31a;
-            box-shadow: 0 4px 15px rgba(255, 163, 26, 0.1);
-            position: relative;
-            z-index: 10;
-        }
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    padding:90px 6vw 70px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .pulse-line{
+    width:100%;height:60px;margin:0 auto 10px;
+    display:block;
+  }
+  .hero h1{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(2.2rem,6vw,4.2rem);
+    margin:10px 0 6px;
+    color:#fff;
+  }
+  .hero h1 em{
+    font-style:normal;color:var(--red);
+    text-shadow:0 0 8px var(--red),0 0 30px var(--red-dim);
+  }
+  .hero p.lead{
+    max-width:640px;margin:14px auto 0;
+    color:var(--muted);font-size:1.05rem;
+  }
+  .hero-stats{
+    display:flex;justify-content:center;gap:14px;margin-top:34px;flex-wrap:wrap;
+  }
+  .stat-pill{
+    border:1px solid var(--line);
+    background:var(--card);
+    padding:10px 18px;border-radius:40px;
+    font-size:.85rem;color:var(--muted);
+  }
+  .stat-pill b{color:var(--red-soft);font-family:var(--display);}
 
-        /* تصميم الشعار الاحترافي بالأسود والأصفر */
-        .logo {
-            font-size: 2.5rem;
-            font-weight: 900;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            letter-spacing: 1px;
-        }
+  /* ---------- section shell ---------- */
+  section{padding:70px 6vw;max-width:1200px;margin:0 auto;}
+  .eyebrow{
+    display:inline-block;font-size:.78rem;letter-spacing:2px;
+    color:var(--red-soft);border:1px solid var(--red-dim);
+    padding:5px 14px;border-radius:20px;margin-bottom:14px;
+    background:rgba(255,31,61,0.06);
+  }
+  .section-title{
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(1.6rem,3.2vw,2.4rem);color:#fff;margin:0 0 8px;
+  }
+  .section-sub{color:var(--muted);max-width:680px;margin-bottom:38px;font-size:.98rem;}
 
-        .logo .white-text {
-            color: #ffffff;
-        }
+  /* ---------- day tabs ---------- */
+  .day-tabs{display:flex;gap:10px;margin-bottom:34px;flex-wrap:wrap;}
+  .day-tab{
+    flex:1;min-width:150px;
+    padding:16px 18px;border-radius:14px;
+    background:var(--card);border:1px solid var(--line);
+    cursor:pointer;text-align:center;transition:.25s;
+    font-family:var(--display);font-weight:700;color:var(--muted);
+  }
+  .day-tab .sub{display:block;font-family:var(--mono);font-weight:400;font-size:.78rem;margin-top:4px;color:var(--muted);}
+  .day-tab.active{
+    color:#fff;border-color:var(--red);
+    background:linear-gradient(160deg,rgba(255,31,61,0.14),rgba(255,31,61,0.02));
+    box-shadow:0 0 22px -4px var(--red);
+  }
+  .day-tab.active .sub{color:var(--red-soft);}
 
-        .logo .yellow-badge {
-            background-color: #ffa31a;
-            color: #000000;
-            padding: 2px 12px;
-            border-radius: 8px;
-            display: inline-block;
-        }
+  .day-panel{display:none;}
+  .day-panel.active{display:block;animation:fadein .35s ease;}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 
-        /* زر التليجرام */
-        .telegram-btn {
-            background-color: #2AABEE;
-            color: white;
-            text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(42, 171, 238, 0.3);
-        }
+  /* ---------- exercise cards ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;}
+  .ex-card-wrap{
+    position:relative;
+    border-radius:18px;
+    padding:2px;
+    overflow:hidden;
+    isolation:isolate;
+    transition:transform .25s;
+  }
+  .ex-card-wrap::before{
+    content:"";
+    position:absolute;
+    top:50%;left:50%;
+    width:220%;height:220%;
+    background:conic-gradient(from 0deg,
+      transparent 0deg, var(--red) 30deg, transparent 70deg,
+      transparent 180deg, var(--red-soft) 210deg, transparent 250deg,
+      transparent 360deg);
+    transform:translate(-50%,-50%) rotate(0deg);
+    animation:neonspin 4s linear infinite;
+    z-index:0;
+    will-change:transform;
+  }
+  @keyframes neonspin{to{transform:translate(-50%,-50%) rotate(360deg);}}
 
-        .telegram-btn:hover {
-            background-color: #229ED9;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(42, 171, 238, 0.5);
-        }
+  /* ---------- generic neon frame (used for all other cards) ---------- */
+  .neon-frame{
+    position:relative;
+    border-radius:var(--r,16px);
+    padding:2px;
+    overflow:hidden;
+    isolation:isolate;
+    height:100%;
+  }
+  .neon-frame::before{
+    content:"";
+    position:absolute;
+    top:50%;left:50%;
+    width:220%;height:220%;
+    background:conic-gradient(from 0deg,
+      transparent 0deg, var(--red) 30deg, transparent 70deg,
+      transparent 180deg, var(--red-soft) 210deg, transparent 250deg,
+      transparent 360deg);
+    transform:translate(-50%,-50%) rotate(0deg);
+    animation:neonspin 4s linear infinite;
+    z-index:0;
+    will-change:transform;
+  }
+  .ex-card-wrap:active,
+  .ex-card-wrap:hover{transform:translateY(-4px);}
+  .ex-card{
+    position:relative;
+    z-index:1;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:20px 20px 18px;
+    height:100%;
+  }
+  .ex-num{
+    font-family:var(--display);font-size:.75rem;color:var(--red-soft);
+    letter-spacing:1px;
+  }
+  .ex-name{
+    font-family:var(--display);font-weight:700;font-size:1.12rem;
+    color:#fff;margin:6px 0 12px;
+  }
+  .ex-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+  .chip{
+    background:rgba(255,31,61,0.08);border:1px solid var(--red-dim);
+    color:var(--red-soft);font-size:.76rem;padding:4px 10px;border-radius:8px;
+  }
+  .chip.muted{background:rgba(255,255,255,0.04);border-color:var(--line);color:var(--muted);}
+  .ex-note{color:var(--muted);font-size:.85rem;margin-bottom:12px;}
+  .video-link{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:.82rem;color:var(--text);
+    text-decoration:none;border-bottom:1px dashed var(--red-soft);
+    padding-bottom:2px;transition:.2s;
+  }
+  .video-link:hover{color:var(--red-soft);}
 
-        /* القسم الرئيسي (البطل) */
-        .hero {
-            text-align: center;
-            margin-top: 15vh;
-            padding: 20px;
-            position: relative;
-            z-index: 10;
-        }
+  /* ---------- goal note ---------- */
+  .goal-note{
+    border-right:3px solid var(--red);
+    background:linear-gradient(90deg,rgba(255,31,61,0.08),transparent);
+    padding:14px 18px;border-radius:8px;color:var(--muted);font-size:.92rem;margin-bottom:26px;
+  }
 
-        .hero h1 {
-            font-size: 4rem;
-            color: #ffa31a;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 10px rgba(255, 163, 26, 0.3);
-        }
+  /* ---------- tips ---------- */
+  .tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+  .tip-card{
+    position:relative;z-index:1;height:100%;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;
+  }
+  .tip-card h3{
+    font-family:var(--display);color:#fff;font-size:1.05rem;margin:0 0 10px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .tip-card h3::before{
+    content:"";width:8px;height:8px;border-radius:50%;
+    background:var(--red);box-shadow:0 0 10px var(--red);flex-shrink:0;
+  }
+  .tip-card ul{margin:0;padding-right:18px;color:var(--muted);font-size:.9rem;}
+  .tip-card li{margin-bottom:6px;}
 
-        .hero p {
-            font-size: 1.5rem;
-            color: #cccccc;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
+  /* ---------- converter ---------- */
+  .converter{
+    position:relative;z-index:1;
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:36px;display:flex;flex-wrap:wrap;gap:26px;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .converter::after{
+    content:"";position:absolute;width:300px;height:300px;
+    background:radial-gradient(circle, var(--red-dim), transparent 70%);
+    opacity:.35;top:-100px;left:-100px;pointer-events:none;
+  }
+  .conv-field{display:flex;flex-direction:column;gap:8px;min-width:180px;}
+  .conv-field label{font-size:.8rem;color:var(--muted);}
+  .conv-field input{
+    background:var(--bg-soft);border:1px solid var(--line);color:#fff;
+    font-size:1.4rem;font-family:var(--display);padding:12px 14px;border-radius:10px;
+    outline:none;transition:.2s;width:100%;
+  }
+  .conv-field input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(255,31,61,0.15);}
+  .conv-eq{font-size:1.6rem;color:var(--red-soft);font-family:var(--display);align-self:center;margin-top:22px;}
+  .conv-hint{width:100%;text-align:center;color:var(--muted);font-size:.8rem;margin-top:-6px;}
 
-        /* حاوية الكلمات المتناثرة */
-        .scattered-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 1;
-        }
+  /* ---------- progression ---------- */
+  .rule-list{display:flex;flex-direction:column;gap:16px;}
+  .rule{
+    position:relative;z-index:1;height:100%;
+    display:flex;gap:16px;background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:18px 20px;align-items:flex-start;
+  }
+  .rule .idx{
+    font-family:var(--display);font-weight:800;color:var(--red);
+    font-size:1.4rem;min-width:36px;
+  }
+  .rule h4{margin:0 0 4px;color:#fff;font-family:var(--display);font-size:1rem;}
+  .rule p{margin:0;color:var(--muted);font-size:.9rem;}
 
-        /* تصميم الكلمات المتناثرة */
-        .word {
-            position: absolute;
-            font-weight: 800;
-            color: #ffa31a;
-            opacity: 0;
-            white-space: nowrap;
-            user-select: none;
-            animation: floatUp linear infinite;
-        }
+  /* ---------- nutrition ---------- */
+  .nutri-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;}
+  .nutri-card{
+    position:relative;z-index:1;height:100%;
+    text-align:center;background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:26px 16px;
+  }
+  .nutri-card .val{
+    font-family:var(--display);font-weight:800;font-size:1.7rem;color:var(--red-soft);
+    text-shadow:0 0 14px var(--red-dim);
+  }
+  .nutri-card .lbl{color:var(--muted);font-size:.85rem;margin-top:6px;}
 
-        /* حركة طفو الكلمات */
-        @keyframes floatUp {
-            0% {
-                transform: translateY(110vh) rotate(-15deg) scale(0.8);
-                opacity: 0;
-            }
-            20% {
-                opacity: 0.15; /* الشفافية خفيفة كي لا تزعج القراءة */
-            }
-            80% {
-                opacity: 0.15;
-            }
-            100% {
-                transform: translateY(-20vh) rotate(15deg) scale(1.2);
-                opacity: 0;
-            }
-        }
+  footer{
+    text-align:center;padding:40px 6vw 60px;color:var(--muted);font-size:.82rem;
+    border-top:1px solid var(--line);margin-top:40px;
+  }
+  footer .brand{display:block;margin-bottom:8px;}
 
-        /* التوافق مع الهواتف الذكية */
-        @media (max-width: 768px) {
-            header { flex-direction: column; gap: 20px; }
-            .hero h1 { font-size: 2.5rem; }
-            .hero p { font-size: 1.1rem; }
-        }
-    </style>
+  @media (max-width:640px){
+    .nav-links{display:none;}
+    section{padding:50px 5vw;}
+  }
+</style>
 </head>
 <body>
 
-    <!-- شريط التنقل العُلوي -->
-    <header>
-        <div class="logo">
-            <span class="white-text">حسن</span><span class="yellow-badge">البصراوي</span>
-        </div>
-        <nav>
-            <!-- ضع يوزر التليجرام الخاص بك بدل YOUR_USERNAME -->
-            <a href="https://t.me/YOUR_USERNAME" target="_blank" class="telegram-btn">
-                <span>تواصل معي على تليجرام</span>
-            </a>
-        </nav>
-    </header>
+<nav>
+  <div class="brand">PULSE <span>PROTOCOL</span></div>
+  <div class="nav-links">
+    <a href="#program">البرنامج</a>
+    <a href="#tips">النصائح</a>
+    <a href="#converter">تحويل الوزن</a>
+    <a href="#nutrition">التغذية</a>
+  </div>
+</nav>
 
-    <!-- المحتوى الرئيسي -->
-    <main>
-        <section class="hero">
-            <h1>مرحباً بك في القمة</h1>
-            <p>التصميم الأقوى والأكثر عصرية. صُنع خصيصاً ليخطف الأنظار ويتصدر المنافسة بألوانه الجريئة والمميزة.</p>
-        </section>
-    </main>
+<!-- HERO -->
+<div class="hero">
+  <svg class="pulse-line" viewBox="0 0 800 60" preserveAspectRatio="none">
+    <polyline id="ekg" points="0,30 120,30 140,10 160,50 180,5 200,55 220,30 340,30 360,15 380,45 400,30 800,30"
+      fill="none" stroke="#ff1f3d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <span class="eyebrow">HYPERTROPHY · PUSH / PULL / LEGS</span>
+  <h1>برنامج <em>التضخيم العضلي</em><br>المبني على العلم</h1>
+  <p class="lead">نظام تدريب مقسّم على 3 أيام (دفع / سحب / أرجل) مصمم لمرحلة النمو، مع قواعد الزيادة التدريجية، التغذية، والاستشفاء — كل ما تحتاجه في مكان واحد.</p>
+  <div class="hero-stats">
+    <div class="stat-pill"><b>6</b> أيام تدريب أسبوعياً</div>
+    <div class="stat-pill"><b>18+</b> تمرين مفصّل</div>
+    <div class="stat-pill"><b>RIR 1-2</b> شدة التدريب</div>
+  </div>
+</div>
 
-    <!-- الحاوية التي ستظهر فيها الكلمات المتناثرة -->
-    <div class="scattered-container" id="scattered"></div>
+<!-- PROGRAM -->
+<section id="program">
+  <span class="eyebrow">الجزء الأول</span>
+  <h2 class="section-title">جدول التمارين الأسبوعي</h2>
+  <p class="section-sub">اختر يوم التدريب لعرض التمارين، عدد المجموعات، التكرارات، وفترات الراحة. كل تمرين يحتوي على رابط لمشاهدة شرح الأداء الصحيح.</p>
 
-    <!-- سكربت جافا سكربت لتوليد الكلمات المتناثرة -->
-    <script>
-        const wordsArray = ['ابه ابه البصراوي', 'حسن البصراوي'];
-        const container = document.getElementById('scattered');
+  <div class="goal-note">
+    الهدف الأساسي: استهداف كل عضلة مرتين أسبوعياً (تدريب 3 أيام ثم تكرار الدورة = 6 أيام تدريب فعلي)، مع زيادة تدريجية في الحمل والاقتراب من الفشل العضلي (1-2 عدة متبقية) في كل مجموعة أخيرة.
+  </div>
 
-        function createScatteredWord() {
-            const wordEl = document.createElement('div');
-            wordEl.classList.add('word');
-            
-            // اختيار كلمة عشوائية من المصفوفة
-            wordEl.innerText = wordsArray[Math.floor(Math.random() * wordsArray.length)];
-            
-            // تحديد موقع عشوائي أفقياً (من 0 إلى 90% من عرض الشاشة)
-            wordEl.style.left = Math.random() * 90 + 'vw';
-            
-            // تحديد حجم خط عشوائي (بين 1.5 و 4 ريم)
-            wordEl.style.fontSize = (Math.random() * 2.5 + 1.5) + 'rem';
-            
-            // تحديد مدة عشوائية للحركة (بين 7 و 15 ثانية)
-            const duration = Math.random() * 8 + 7;
-            wordEl.style.animationDuration = duration + 's';
-            
-            // إضافة الكلمة للشاشة
-            container.appendChild(wordEl);
+  <div class="day-tabs">
+    <div class="day-tab active" data-day="push">الدفع (Push)<span class="sub">صدر · أكتاف · ترايسبس</span></div>
+    <div class="day-tab" data-day="pull">السحب (Pull)<span class="sub">ظهر · بايسبس</span></div>
+    <div class="day-tab" data-day="legs">الأرجل (Legs)<span class="sub">فخذ · سمانة</span></div>
+  </div>
 
-            // حذف الكلمة من الكود بعد انتهاء حركتها لتخفيف الضغط على المتصفح
-            setTimeout(() => {
-                wordEl.remove();
-            }, duration * 1000);
-        }
+  <!-- PUSH -->
+  <div class="day-panel active" id="panel-push">
+    <div class="grid" id="grid-push"></div>
+  </div>
+  <!-- PULL -->
+  <div class="day-panel" id="panel-pull">
+    <div class="grid" id="grid-pull"></div>
+  </div>
+  <!-- LEGS -->
+  <div class="day-panel" id="panel-legs">
+    <div class="grid" id="grid-legs"></div>
+  </div>
+</section>
 
-        // توليد كلمة جديدة كل 800 جزء من الثانية
-        setInterval(createScatteredWord, 800);
-        
-        // توليد مجموعة مبدئية عند فتح الموقع
-        for(let i=0; i<5; i++) {
-            setTimeout(createScatteredWord, i * 200);
-        }
-    </script>
+<!-- PROGRESSION RULES -->
+<section id="rules">
+  <span class="eyebrow">الجزء الثاني</span>
+  <h2 class="section-title">القواعد العلمية للتضخيم العضلي</h2>
+  <p class="section-sub">هذه القواعد أهم من التمارين نفسها — من دونها لن تحصل على نتائج حتى لو كان الجدول مثالياً.</p>
+  <div class="rule-list">
+    <div class="neon-frame" style="--r:12px"><div class="rule"><div class="idx">01</div><div><h4>الزيادة التدريجية (Progressive Overload)</h4><p>لا تكرر نفس الوزن ونفس العدات كل أسبوع. حاول في كل جلسة رفع وزن أعلى بقليل (2.5 كجم) أو أداء عدة إضافية.</p></div></div></div>
+    <div class="neon-frame" style="--r:12px"><div class="rule"><div class="idx">02</div><div><h4>الاقتراب من الفشل العضلي (RIR 1-2)</h4><p>توقف عندما تشعر أنك قادر على أداء عدة أو عدتين إضافيتين كحد أقصى، لا عندما يكتمل العدد المكتوب فقط.</p></div></div></div>
+    <div class="neon-frame" style="--r:12px"><div class="rule"><div class="idx">03</div><div><h4>التحكم في سرعة العدة (Tempo)</h4><p>ارفع الوزن في ثانية واحدة، وأنزله ببطء خلال 2-3 ثوانٍ. النزول البطيء هو المحرك الأول لنمو العضلة.</p></div></div></div>
+    <div class="neon-frame" style="--r:12px"><div class="rule"><div class="idx">04</div><div><h4>الراحة بين المجموعات</h4><p>التمارين المركّبة (بار) تحتاج راحة أطول (2-3 دقائق) لاستعادة القوة، والتمارين العزلية تكفيها راحة أقصر (1-1.5 دقيقة).</p></div></div></div>
+  </div>
+</section>
 
-</body>
-</html>
+<!-- TIPS -->
+<section id="tips">
+  <span class="eyebrow">الجزء الثالث</span>
+  <h2 class="section-title">نصائح الإحماء والوقاية من الإصابة</h2>
+  <p class="section-sub">الإحماء الجيد وضخ الدم للعضلة قبل الأوزان الثقيلة يقلل خطر الإصابة بشكل كبير ويحسّن الأداء.</p>
+  <div class="tips-grid">
+    <div class="neon-frame" style="--r:14px"><div class="tip-card">
+      <h3>الإحماء العام (5-10 دقائق)</h3>
+      <ul>
+        <li>مشي سريع أو دراجة ثابتة لرفع نبض القلب.</li>
+        <li>حركات دائرية للكتفين والمعصمين والركبتين.</li>
+        <li>تمارين إطالة ديناميكية (Leg swings, Arm circles) — لا إطالة ثابتة قبل الرفع الثقيل.</li>
+      </ul>
+    </div></div>
+    <div class="neon-frame" style="--r:14px"><div class="tip-card">
+      <h3>ضخ الدم قبل التمرين الرئيسي (Pump Sets)</h3>
+      <ul>
+        <li>أدِّ مجموعة تسخين خفيفة (50-60% من وزنك المعتاد) بـ 12-15 عدة لكل تمرين مركّب قبل زيادة الوزن.</li>
+        <li>ركّز على الشعور بالعضلة تنقبض وتتمدد قبل الانتقال للأوزان الثقيلة.</li>
+        <li>الترطيب الجيد قبل وأثناء التمرين يساعد على تدفق الدم للعضلات.</li>
+      </ul>
+    </div></div>
+    <div class="neon-frame" style="--r:14px"><div class="tip-card">
+      <h3>الوقاية من الإصابة</h3>
+      <ul>
+        <li>لا ترفع وزناً تفقد معه التحكم بالشكل الصحيح للتمرين — الشكل أهم من الوزن.</li>
+        <li>لا تتجاوز الفشل العضلي الكامل بشكل متكرر، خصوصاً في مرحلة النمو.</li>
+        <li>إذا شعرت بألم حاد (غير التعب العضلي الطبيعي)، أوقف التمرين فوراً.</li>
+        <li>غيّر التمارين أو زواياها كل 6-8 أسابيع لتقليل إجهاد المفاصل المتكرر.</li>
+      </ul>
+    </div></div>
+    <div class="neon-frame" style="--r:14px"><div class="tip-card">
+      <h3>الاستشفاء بعد التمرين</h3>
+      <ul>
+        <li>تهدئة تدريجية (Cool-down) بإطالات ثابتة لمدة 15-20 ثانية لكل عضلة تم تدريبها.</li>
+        <li>النوم 8-9 ساعات متصلة — هرمون النمو يفرز بأعلى مستوياته أثناء النوم العميق.</li>
+        <li>يوم راحة كامل بين تكرار تدريب نفس العضلة يساعد على الإصلاح والنمو.</li>
+      </ul>
+    </div></div>
+  </div>
+</section>
+
+<!-- CONVERTER -->
+<section id="converter">
+  <span class="eyebrow">أداة مساعدة</span>
+  <h2 class="section-title">تحويل الوزن: باوند ⇄ كيلوجرام</h2>
+  <p class="section-sub">اكتب الرقم بأي وحدة والتحويل يحدث تلقائياً في الحقل الآخر.</p>
+  <div class="neon-frame" style="--r:20px">
+  <div class="converter">
+    <div class="conv-field">
+      <label>الوزن بالباوند (lb)</label>
+      <input type="number" id="lbInput" placeholder="مثال: 135">
+    </div>
+    <div class="conv-eq">=</div>
+    <div class="conv-field">
+      <label>الوزن بالكيلوجرام (kg)</label>
+      <input type="number" id="kgInput" placeholder="مثال: 61.2">
+    </div>
+    <div class="conv-hint">1 كجم = 2.20462 باوند &nbsp;·&nbsp; 1 باوند = 0.453592 كجم</div>
+  </div>
+  </div>
+</section>
+
+<!-- NUTRITION -->
+<section id="nutrition">
+  <span class="eyebrow">الجزء الرابع</span>
+  <h2 class="section-title">التغذية والاستشفاء</h2>
+  <p class="section-sub">التمرين يهدم العضلة، والتغذية والنوم هما ما يبنيانها من جديد. بدون فائض سعرات وبروتين كافٍ لن يحدث تضخم حقيقي.</p>
+  <div class="nutri-grid">
+    <div class="neon-frame" style="--r:14px"><div class="nutri-card"><div class="val">2800-3200</div><div class="lbl">سعرة حرارية يومياً (فائض للبناء)</div></div></div>
+    <div class="neon-frame" style="--r:14px"><div class="nutri-card"><div class="val">1.6-2 غ</div><div class="lbl">بروتين لكل كيلوجرام من وزن الجسم</div></div></div>
+    <div class="neon-frame" style="--r:14px"><div class="nutri-card"><div class="val">8-9 س</div><div class="lbl">نوم متصل ليلاً لإفراز هرمون النمو</div></div></div>
+    <div class="neon-frame" style="--r:14px"><div class="nutri-card"><div class="val">+0.5 كغ</div><div class="lbl">هدف الزيادة الأسبوعية في الوزن</div></div></div>
+  </div>
+</section>
+
+
+<footer>
+  <span class="brand">PULSE <span style="color:var(--red)">PROTOCOL</span></span>
+  هذا البرنامج للإرشاد العام فقط، ولا يُعتبر استشارة طبية أو رياضية متخصصة — يُفضّل إشراف مدرّب أو مختص لياقة عند التطبيق، خصوصاً في مرحلة النمو.
+</footer>
+
+<script>
+  // day tabs
+  const tabs = document.querySelectorAll('.day-tab');
+  const panels = {
+    push: document.getElementById('panel-push'),
+    pull: document.getElementById('panel-pull'),
+    legs: document.getElementById('panel-legs'),
+  };
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      tabs.forEach(t=>t.classList.remove('active'));
+      Object.values(panels).forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      panels[tab.dataset.day].classList.add('active');
+    });
+  });
+
+  // exercise data
+  const data = {
+    push: [
+      {name:"بنش برس مستوي بالبار (Barbell Bench Press)", en:"Barbell Bench Press", sets:"3", reps:"6-8", rest:"2-3 دقائق", note:"تمرين مركّب أساسي — يؤدى أولاً وبأعلى طاقة تركيز."},
+      {name:"تفتيح صدر علوي بالدمبل (Incline Dumbbell Press)", en:"Incline Dumbbell Press", sets:"3", reps:"8-10", rest:"2 دقيقة", note:"يستهدف الجزء العلوي من الصدر."},
+      {name:"تجميع صدر بالكيبل / فراشة (Cable Crossovers / Pec Deck)", en:"Cable Crossovers", sets:"3", reps:"10-12", rest:"1.5 دقيقة", note:"تمرين عزل لإنهاء العضلة."},
+      {name:"ضغط أكتاف بالدمبل (Overhead Dumbbell Press)", en:"Overhead Dumbbell Press", sets:"3", reps:"8-10", rest:"2 دقيقة", note:"لبناء عرض الكتف الأمامي والجانبي."},
+      {name:"رفرفة جانبية بالدمبل (Dumbbell Lateral Raises)", en:"Dumbbell Lateral Raises", sets:"4", reps:"12-15", rest:"1-1.5 دقيقة", note:"عضلة الكتف الجانبي تتحمل حجم تدريب عالٍ."},
+      {name:"سحب ترايسبس بالكيبل (Triceps Pushdown)", en:"Triceps Pushdown", sets:"3", reps:"10-12", rest:"1.5 دقيقة", note:"تركيز على انقباض كامل في أسفل الحركة."},
+      {name:"ترايسبس خلف الرأس (Overhead Triceps Extension)", en:"Overhead Triceps Extension", sets:"3", reps:"10-12", rest:"1.5 دقيقة", note:"يستهدف الرأس الطويلة للترايسبس."},
+    ],
+    pull: [
+      {name:"سحب واسع من الأعلى أو عقلة (Lat Pulldown / Pull-ups)", en:"Lat Pulldown", sets:"3", reps:"8-10", rest:
