@@ -477,4 +477,56 @@
       {name:"ترايسبس خلف الرأس (Overhead Triceps Extension)", en:"Overhead Triceps Extension", sets:"3", reps:"10-12", rest:"1.5 دقيقة", note:"يستهدف الرأس الطويلة للترايسبس."},
     ],
     pull: [
-      {name:"سحب واسع من الأعلى أو عقلة (Lat Pulldown / Pull-ups)", en:"Lat Pulldown", sets:"3", reps:"8-10", rest:
+      {name:"سحب واسع من الأعلى أو عقلة (Lat Pulldown / Pull-ups)", en:"Lat Pulldown", sets:"3", reps:"8-10", rest:"2-3 دقائق", note:"لبناء عرض الظهر."},
+      {name:"تجديف بالبار (Barbell Rows)", en:"Barbell Rows", sets:"3", reps:"6-8", rest:"2-3 دقائق", note:"تمرين مركّب لسماكة الظهر."},
+      {name:"تجديف أرضي بالكيبل (Seated Cable Rows)", en:"Seated Cable Rows", sets:"3", reps:"10-12", rest:"2 دقيقة", note:"حافظ على استقامة الظهر أثناء السحب."},
+      {name:"سحب للوجه (Face Pulls)", en:"Face Pulls", sets:"3", reps:"12-15", rest:"1.5 دقيقة", note:"مهم لصحة الكتف والأكتاف الخلفية."},
+      {name:"بايسبس بالبار (Barbell Bicep Curls)", en:"Barbell Bicep Curls", sets:"3", reps:"8-10", rest:"1.5 دقيقة", note:"تجنب تحريك الجذع لدفع الوزن."},
+      {name:"بايسبس مطرقة بالدمبل (Hammer Curls)", en:"Hammer Curls", sets:"3", reps:"10-12", rest:"1.5 دقيقة", note:"يستهدف العضلة الكابة أيضاً."},
+    ],
+    legs: [
+      {name:"سكوات بالبار (Barbell Squats)", en:"Barbell Squats", sets:"3", reps:"6-8", rest:"3 دقائق", note:"الملك بين تمارين الأرجل — أولوية الحفاظ على الشكل الصحيح."},
+      {name:"ديدليفت روماني (Romanian Deadlift)", en:"Romanian Deadlift", sets:"3", reps:"8-10", rest:"2-3 دقائق", note:"يستهدف الفخذ الخلفي وأسفل الظهر."},
+      {name:"مكبس الأرجل (Leg Press)", en:"Leg Press", sets:"3", reps:"10-12", rest:"2 دقيقة", note:"حمل آمن نسبياً لبناء حجم الفخذ."},
+      {name:"رفرفة أمامي على الجهاز (Leg Extensions)", en:"Leg Extensions", sets:"3", reps:"12-15", rest:"1.5 دقيقة", note:"عزل للفخذ الأمامي."},
+      {name:"رفرفة خلفي على الجهاز (Leg Curls)", en:"Leg Curls", sets:"3", reps:"12-15", rest:"1.5 دقيقة", note:"عزل للفخذ الخلفي."},
+      {name:"رفع السمانة وقوفاً (Standing Calf Raises)", en:"Standing Calf Raises", sets:"4", reps:"15-20", rest:"1 دقيقة", note:"توقف لحظة في أعلى الحركة لانقباض كامل."},
+    ],
+  };
+
+  function render(day){
+    const grid = document.getElementById('grid-'+day);
+    grid.innerHTML = data[day].map((ex,i)=>{
+      const q = encodeURIComponent(ex.en);
+      return `
+        <div class="ex-card-wrap">
+        <div class="ex-card">
+          <div class="ex-num">تمرين ${String(i+1).padStart(2,'0')}</div>
+          <div class="ex-name">${ex.name}</div>
+          <div class="ex-meta">
+            <span class="chip">${ex.sets} مجموعات</span>
+            <span class="chip">${ex.reps} عدة</span>
+            <span class="chip muted">راحة ${ex.rest}</span>
+          </div>
+          <div class="ex-note">${ex.note}</div>
+          <a class="video-link" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${q}">
+            ▶ مشاهدة شرح الأداء
+          </a>
+        </div>
+        </div>`;
+    }).join('');
+  }
+  render('push'); render('pull'); render('legs');
+
+  // weight converter
+  const lb = document.getElementById('lbInput');
+  const kg = document.getElementById('kgInput');
+  lb.addEventListener('input', ()=>{
+    kg.value = lb.value ? (parseFloat(lb.value) * 0.453592).toFixed(2) : '';
+  });
+  kg.addEventListener('input', ()=>{
+    lb.value = kg.value ? (parseFloat(kg.value) * 2.20462).toFixed(2) : '';
+  });
+</script>
+</body>
+</html>
